@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1a1a1a;
+      color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #333;
+      margin: auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 30px;
+      box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+      margin: 10px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #c0beb1;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #ec6c56;
+      background-color: #333;
+      color: #f2f2f2;
+    }
+
+    #spinner {
+      display: none;
+      width: 50px;
+      height: 50px;
+      border: 3px solid #e45252;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #downloadBtn {
+      display: block;
+      text-decoration: none;
+    }
+
+    #downloadBtn button,
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      color: #1a1a1a;
+      cursor: pointer;
+      background-color: #333;
+      transition: background-color 0.3s ease;
+      border: 3px solid #e45252;
+      color: white;
+    }
+
+    #downloadBtn button:hover,
+    input[type="submit"]:hover {
+      border: 3px solid #8ceb4d;
+    }
+    #downloadBtn button{
+      display: block;
+    } 
+  a{
+    text-decoration: none;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          d="M5.7 15C4.03377 15.6353 3 16.5205 3 17.4997C3 19.4329 7.02944 21 12 21C16.9706 21 21 19.4329 21 17.4997C21 16.5205 19.9662 15.6353 18.3 15M12 9H12.01M18 9C18 13.0637 13.5 15 12 18C10.5 15 6 13.0637 6 9C6 5.68629 8.68629 3 12 3C15.3137 3 18 5.68629 18 9ZM13 9C13 9.55228 12.5523 10 12 10C11.4477 10 11 9.55228 11 9C11 8.44772 11.4477 8 12 8C12.5523 8 13 8.44772 13 9Z"
+          stroke="#e45252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </g>
+    </svg>
+    <h1>Reviews extractor</h1>
+    <form method="post" action="/submit" onsubmit="showSpinner(); return true;">
+      <input type="text" name="name" placeholder="Enter map url">
+      <input id = "submit" type="submit" value="Submit">
+    </form>
+    <div id="spinner"></div>
+    <div id="downloadBtn">
+      <a class="hidden" href="/download_reviews" ><button>Download </button></a>
+    </div>
+  </div>
+
+  <script>
+
+    var file = "{{ file }}";
+    function showSpinner() {
+      document.getElementById('spinner').style.display = 'block';
+      document.getElementById('submit').style.display = 'block';
+      document.getElementById('downloadBtn').style.display = 'none'; 
+    }
+    function showDown() {
+      document.getElementById('downloadBtn').style.display = 'block'; 
+    }
+    setTimeout(function() {
+      console.log(file)
+            if ( file === 1) {
+                showDown()
+                console.log('Triggering JavaScript function...');
+            }
+        }, 1000); 
+        showDown()
+  </script>
+</body>
+</html>
