@@ -14,11 +14,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 def scrape_reviews_to_csv(url, output_file,reviews):
     os.environ['WDM_LOCAL'] = '/tmp/.wdm'
+    os.makedirs('/tmp/.wdm', exist_ok=True)
     
     print(f"Started scraping reviews for {url}")
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome(options=chrome_options,service=Service(ChromeDriverManager(path='/tmp/.wdm').install())
     try:
         driver.get(url)
         driver.maximize_window()
