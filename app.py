@@ -7,17 +7,18 @@ reviews = []
 output_file = 'reviews.csv'
 
 def remove_file(filename):
-    if os.path.exists(filename):  
-        os.remove(filename)
+    if os.path.exists(filename): 
+        print("yes")
         
-def check(file):
+def checks(file):
      if os.path.exists(file): 
          return 1
      else:
          return 0 
+     
 remove_file('reviews.csv')
 
-check = remove_file('reviews.csv')
+check = checks('reviews.csv')
 
 @app.route('/')
 def index():
@@ -27,7 +28,7 @@ def index():
 def submit():
     url = request.form.get('name')
     scrape_reviews_to_csv(url, output_file,reviews)
-    check = remove_file('reviews.csv')
+    check = checks('reviews.csv')
     return render_template('index.html',file=check)
 
 @app.route('/download_reviews')
