@@ -1,3 +1,4 @@
+import argparse
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -7,21 +8,16 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 import csv
-import os
 from webdriver_manager.chrome import ChromeDriverManager
 
+# List to store reviews
+reviews = []
 
-
-def scrape_reviews_to_csv(url, output_file,reviews):
-
-    service = Service(executable_path='chromedriver.exe')
+def scrape_reviews_to_csv(url, output_file):
     print(f"Started scraping reviews for {url}")
-    
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    
-    driver = webdriver.Chrome(service=service,options=chrome_options)
-    
+    driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
     try:
         driver.get(url)
         driver.maximize_window()
@@ -106,3 +102,11 @@ def scrape_reviews_to_csv(url, output_file,reviews):
         csv_writer.writerow(headers)
         for row in reviews:
             csv_writer.writerow(row)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Google Map Reviews Extractor')
+    parser.add_argument('--place', type=str, required=True, help='URL of the place on Google Maps')
+    parser.add_argument('--output', type=str, default='review_data.csv', help='Output CSV file name')
+    args = parser.parse_args()
+
+    scrape_reviews_to_csv(args.place, args.output)
