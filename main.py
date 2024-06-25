@@ -7,9 +7,13 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 import csv
+import os
 from webdriver_manager.chrome import ChromeDriverManager
 
+
+
 def scrape_reviews_to_csv(url, output_file,reviews):
+    os.environ['WDM_LOCAL'] = '/tmp/.wdm'
     
     print(f"Started scraping reviews for {url}")
     chrome_options = Options()
